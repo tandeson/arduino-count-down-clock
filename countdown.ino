@@ -1,11 +1,12 @@
 #include <Servo.h> 
+#define start 180
 
 Servo digitone;
 Servo digittwo;
 Servo digithour;
-int postionone = 180;
-int postiontwo = 180;
-int postionhour = 180;
+int postionone = start;
+int postiontwo = start;
+int postionhour = start;
 unsigned long pasttime = 0;
 unsigned long currenttime = millis();
 int finished = 0;
@@ -40,7 +41,7 @@ int posincrtwo(int x) {
 }
 
 void loop() {
-  
+  currenttime = millis();
   
     // checks to see if 1 min has gone by.
   if (currenttime - pasttime > 60000 || finished != 1) {
@@ -53,14 +54,14 @@ void loop() {
       
     // if it is in the zero postion, the next servo, digittwo, will move one postion, and reset digitone to 180 degrees
       }else {
-        postionone = 180;
+        postionone = start;
         digittwo.write(postiontwo);
         postionone = posincrtwo(postiontwo);
             if (postiontwo >= 0) {
             digithour.write(postionhour);
             postionhour = posincrone(postionhour);
         } else { 
-            postiontwo = 180;
+            postiontwo = start;
         }
     
     }
